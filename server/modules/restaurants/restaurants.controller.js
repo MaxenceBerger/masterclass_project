@@ -32,4 +32,28 @@ restaurants.delete = async (req, res) => {
   return res.json({ message: 'Restaurant is deleted' })
 }
 
+restaurants.find_restaurant_coordinates = async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const {long_coordinates, lat_coordinates, max_distance} = req.query;
+  let restaurant = await restaurantModel.find(
+    {
+      location:
+          {
+            $near:
+                {
+                  $geometry:
+                      {
+                        type: 'Point',
+                        coordinates:
+                        // eslint-disable-next-line camelcase
+                            [long_coordinates, lat_coordinates]
+                      },
+                  $maxDistance: max_distance
+                }
+          }
+    }
+  )
+  return res.json(restaurant)
+}
+
 export { restaurants }
