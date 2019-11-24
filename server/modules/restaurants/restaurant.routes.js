@@ -4,7 +4,7 @@ import { asyncWrapper } from '../../utils/asyncWrapper'
 
 const restaurantRoutes = express.Router()
 
-//restaurantRoutes.get('/', asyncWrapper(restaurants.index))
+// restaurantRoutes.get('/', asyncWrapper(restaurants.index))
 restaurantRoutes.get('/:restaurant_id', asyncWrapper(restaurants.find_restaurant_id))
 restaurantRoutes.post('/', asyncWrapper(restaurants.create))
 restaurantRoutes.put('/:restaurant_id', asyncWrapper(restaurants.update))

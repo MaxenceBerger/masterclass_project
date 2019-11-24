@@ -1,13 +1,11 @@
 import express from 'express'
 import multer from 'multer'
-import { userRoutes } from '../modules/users/user.routes'
 import { restaurantRoutes } from '../modules/restaurants/restaurant.routes'
 import { httpStatus } from '../utils/httpStatus'
 import { diskStorage, limits, s3Storage, imageFileFilter } from '../utils/fileupload'
 const Router = express.Router()
 
 Router.all('/health-check', (req, res) => res.json({ message: 'OK' }))
-Router.use('/users', userRoutes)
 Router.use('/restaurants', restaurantRoutes)
 
 Router.post('/fileupload', multer({ storage: diskStorage, limits, fileFilter: imageFileFilter }).single('avatar'), (req, res) => {

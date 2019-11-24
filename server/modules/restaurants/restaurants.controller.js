@@ -34,7 +34,7 @@ restaurants.delete = async (req, res) => {
 
 restaurants.find_restaurant_coordinates = async (req, res) => {
   // eslint-disable-next-line camelcase
-  const { long_coordinates, lat_coordinates, max_distance } = req.query;
+  const { long_coordinates, lat_coordinates, max_distance } = req.query
   let restaurant = await restaurantModel.find(
     {
       location:
