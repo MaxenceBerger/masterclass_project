@@ -19,7 +19,7 @@ restaurants.create = async (req, res) => {
 
 restaurants.update = async (req, res) => {
   let restaurant = await restaurantModel.findById(req.params.restaurant_id)
-  if (!restaurant) return res.status(httpStatus.BAD_REQUEST).json({ message: 'restaurant not found' })
+  if (!restaurant) return res.status(httpStatus.BAD_REQUEST).json({ message: 'Restaurant not found' })
   Object.assign(restaurant, req.body)
   await restaurant.save()
   return res.json(restaurant)
@@ -27,14 +27,14 @@ restaurants.update = async (req, res) => {
 
 restaurants.delete = async (req, res) => {
   let restaurant = await restaurantModel.findById(req.params.restaurant_id)
-  if (!restaurant) return res.status(httpStatus.BAD_REQUEST).json({ message: 'Restaurant is not found' })
+  if (!restaurant) return res.status(httpStatus.BAD_REQUEST).json({ message: 'Restaurant not found' })
   await restaurant.delete()
   return res.json({ message: 'Restaurant is deleted' })
 }
 
 restaurants.find_restaurant_coordinates = async (req, res) => {
   // eslint-disable-next-line camelcase
-  const {long_coordinates, lat_coordinates, max_distance} = req.query;
+  const { long_coordinates, lat_coordinates, max_distance } = req.query;
   let restaurant = await restaurantModel.find(
     {
       location:
