@@ -1,16 +1,13 @@
 import express from 'express'
 import { restaurants } from './restaurants.controller'
 import { asyncWrapper } from '../../utils/asyncWrapper'
-import { validate } from '../../utils/validate'
-import { newrestaurant } from './restaurant.validations'
 
 const restaurantRoutes = express.Router()
 
 restaurantRoutes.get('/', asyncWrapper(restaurants.index))
-restaurantRoutes.post('/', validate(newrestaurant), asyncWrapper(restaurants.create))
-restaurantRoutes.put('/:id', asyncWrapper(restaurants.update))
-
-// This route uses mysql DB for demo purpose to just show how can one use mysql in this app
-restaurantRoutes.get('/testmysqlroute', asyncWrapper(restaurants.testMysql))
+restaurantRoutes.get('/:restaurant_id', asyncWrapper(restaurants.find_restaurant_id))
+restaurantRoutes.post('/', asyncWrapper(restaurants.create))
+restaurantRoutes.put('/:restaurant_id', asyncWrapper(restaurants.update))
+restaurantRoutes.delete('/:restaurant_id', asyncWrapper(restaurants.delete))
 
 export { restaurantRoutes }

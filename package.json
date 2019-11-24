@@ -42,9 +42,11 @@
   "scripts": {
     "test": "APP_ENVIROMENT=test ./node_modules/.bin/nyc ./node_modules/.bin/mocha --exit",
     "dev": "npm run lint && DEBUG=app nodemon --exec babel-node index.js",
+    "fix": "npm run lintFix && DEBUG=app nodemon --exec babel-node index.js",
     "build": "rm -rf dist && npm run lint && ./node_modules/.bin/babel . --out-dir dist --ignore node_modules && cp .env dist",
     "serve": "node dist/index.js",
     "lint": "./node_modules/.bin/eslint 'index.js' 'server/**/*.js' 'server/app.js' ",
+    "lintFix": "./node_modules/.bin/eslint --fix 'index.js' 'server/**/*.js' 'server/app.js' ",
     "precommit": "npm run lint",
     "prepush": "npm run lint",
     "test:coverage": "nyc --reporter=lcov yarn test"

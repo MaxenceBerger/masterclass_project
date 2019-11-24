@@ -3,24 +3,24 @@ import { Router } from './config/routes'
 import { connectMongo } from './config/mongoconnect'
 import { errorHandler } from './config/errorHandler'
 import bodyParser from 'body-parser'
-import jwt from 'express-jwt'
+// import jwt from 'express-jwt'
 import helmet from 'helmet'
 import { httpStatus } from './utils/httpStatus'
 import { AppError } from './utils/appError'
-import { secretCallback } from './utils/secretCallback'
+// import { secretCallback } from './utils/secretCallback'
 import { connectMysql } from './config/mysqlconnect'
 
 const app = express()
 
 app.use(bodyParser.json())
 app.use(helmet())
-//app.use(
+// app.use(
 //  '/api',
 //  jwt({ secret: secretCallback }).unless({
 //    path: [ '/api/health-check', '/api/users', '/api/auth/login', '/api/users/testmysqlroute', '/api/fileupload', '/api/s3fileupload' ],
 //    requestProperty: 'auth'
 //  })
-//)
+// )
 app.use('/', Router)
 
 // Handle 404

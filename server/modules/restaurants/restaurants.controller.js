@@ -1,29 +1,35 @@
 import { restaurantModel } from './restaurant.model'
 import { httpStatus } from '../../utils/httpStatus'
-import { pool } from '../../config/mysqlconnect'
 const restaurants = {}
 
 restaurants.index = async (req, res) => {
-  let restaurants = await restaurantModel.find({}, { password: 0, __v: 0 })
-  return res.json({ data: { restaurants } })
+  let restaurants = await restaurantModel.find()
+  return res.json(restaurants)
+}
+
+restaurants.find_restaurant_id = async (req, res) => {
+  let restaurants = await restaurantModel.findById(req.params.restaurant_id)
+  return res.json(restaurants)
 }
 
 restaurants.create = async (req, res) => {
-  let data = await restaurantModel.create(req.body)
-  let { password, __v, ...restaurant } = data.toObject()
-  return res.status(httpStatus.CREATED).json({ data: { restaurant } })
+  let restaurant = await restaurantModel.create(req.body)
+  return res.status(httpStatus.CREATED).json(restaurant)
 }
 
 restaurants.update = async (req, res) => {
-  let restaurant = await restaurantModel.findById(req.params.id)
+  let restaurant = await restaurantModel.findById(req.params.restaurant_id)
   if (!restaurant) return res.status(httpStatus.BAD_REQUEST).json({ message: 'restaurant not found' })
   Object.assign(restaurant, req.body)
   await restaurant.save()
-  return res.json({ message: 'Record updated' })
+  return res.json(restaurant)
 }
 
-restaurants.testMysql = async (req, res) => {
-  let data = await pool.query('Select * from restaurants')
-  return res.json({ data })
+restaurants.delete = async (req, res) => {
+  let restaurant = await restaurantModel.findById(req.params.restaurant_id)
+  if (!restaurant) return res.status(httpStatus.BAD_REQUEST).json({ message: 'Restaurant is not found' })
+  await restaurant.delete()
+  return res.json({ message: 'Restaurant is deleted' })
 }
+
 export { restaurants }
