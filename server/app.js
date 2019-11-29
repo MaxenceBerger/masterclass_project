@@ -6,7 +6,6 @@ import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import { httpStatus } from './utils/httpStatus'
 import { AppError } from './utils/appError'
-import { connectMysql } from './config/mysqlconnect'
 
 const app = express()
 
@@ -20,7 +19,6 @@ app.use(function (req, res, next) {
 })
 
 if (process.env.USE_MONGODB === 'true') connectMongo()
-if (process.env.USE_MYSQL === 'true') connectMysql()
 
 app.use(errorHandler)
 
